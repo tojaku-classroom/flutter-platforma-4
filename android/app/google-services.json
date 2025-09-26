@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "706341065055",
+    "project_id": "flutterapp-obskc-tj",
+    "storage_bucket": "flutterapp-obskc-tj.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706341065055:android:d0e0422de29489137be6ea",
+        "android_client_info": {
+          "package_name": "hr.obskc.pmu.tj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT-mDfyUodKMbbYXlJStmRon_G_rG-o0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706341065055:android:b43ac1fcc48e82b57be6ea",
+        "android_client_info": {
+          "package_name": "hr.obskc.pmu.tj.flutterapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT-mDfyUodKMbbYXlJStmRon_G_rG-o0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
