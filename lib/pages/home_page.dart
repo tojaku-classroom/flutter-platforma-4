@@ -1,37 +1,76 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  Future<void> _logOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Uspješno odjavljeni!')));
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Odjava nije uspjela')));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Naslovnica'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Dobro došli na naslovnicu',
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => context.go('/page1'),
-              child: const Text('Stranica 1'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => context.go('/page2'),
-              child: const Text('Stranica 2'),
-            ),
-          ],
-        ),
-      ),
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        final user = snapshot.data;
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Naslovnica'),
+            actions: [
+              if (user == null)
+                TextButton(
+                  child: const Text('Prijava'),
+                  onPressed: () => context.go('/login'),
+                )
+              else
+                TextButton(
+                  child: const Text('Odjava'),
+                  onPressed: () => _logOut(context),
+                ),
+            ],
+          ),
+          body: Center(
+            child: () {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+              if (user == null) {
+                return const Text('Niste prijavljeni.');
+              }
+              final display = user.email?.isNotEmpty == true
+                  ? user.email
+                  : user.uid;
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Prijavljeni ste kao $display'),
+                  const SizedBox(height: 12),
+                  ElevatedButton(
+                    onPressed: () => _logOut(context),
+                    child: const Text('Odjava'),
+                  ),
+                ],
+              );
+            }(),
+          ),
+        );
+      },
     );
   }
 }
