@@ -10,3 +10,5 @@ dart pub global activate flutterfire_cli
 flutterfire -v
 flutterfire configure
 flutter pub add firebase_core
+
+flutter pub add flutter_dotenv
