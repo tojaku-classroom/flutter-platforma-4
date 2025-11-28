@@ -33,12 +33,16 @@ class HomePage extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Naslovnica'),
             actions: [
-              if (user == null)
+              if (user == null) ...[
                 TextButton(
                   child: const Text('Prijava'),
                   onPressed: () => context.go('/login'),
-                )
-              else
+                ),
+                TextButton(
+                  child: const Text('Registracija'),
+                  onPressed: () => context.go('/register'),
+                ),
+              ] else
                 TextButton(
                   child: const Text('Odjava'),
                   onPressed: () => _logOut(context),
