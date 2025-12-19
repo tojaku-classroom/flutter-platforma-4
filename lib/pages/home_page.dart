@@ -42,11 +42,16 @@ class HomePage extends StatelessWidget {
                   child: const Text('Registracija'),
                   onPressed: () => context.go('/register'),
                 ),
-              ] else
+              ] else ...[
+                TextButton(
+                  child: const Text('Upravljanje idejama'),
+                  onPressed: () => context.go('/manage_ideas'),
+                ),
                 TextButton(
                   child: const Text('Odjava'),
                   onPressed: () => _logOut(context),
                 ),
+              ],
             ],
           ),
           body: Center(
